@@ -24,6 +24,11 @@ void check_file_existance() {
     // Ugly - needs later rewrite
     if(check_directory) {
         std::cout << "Directory already exists\n";
+        if(!check_user_name) {
+            make_user_name();
+        } else {
+            std::cout << "File already exists\n";
+        }
     } else if(!check_directory) {
         make_directory();
         if(!check_user_name) {
@@ -61,26 +66,27 @@ int main() {
     std::cout << "[ 2] Exit program\n";
     std::cout << "\n";
 
-    // Store user input
-    std::cout << "Select: ";
-    std::cin >> store_user_selection;
-    std::cout << "\n";
+    do {
+        // Store user input
+        std::cout << "Select: ";
+        std::cin >> store_user_selection;
 
-    switch(store_user_selection) {
-        // Open and write to file
-        case 1:
-            std::cout << "Opening file...\n\n";
-            break;
-        
-        // Exit program without editing
-        case 2:
-            std::cout << "Exiting...\n\n";
-            break;
-        
-        // Exit on no user input
-        default:
-            std::cout << "\n\n";
-            break;
-    }
+        switch(store_user_selection) {
+            // Open and write to file
+            case 1:
+                std::cout << "Opening file...\n\n";
+                break;
+            
+            // Exit program without editing
+            case 2:
+                std::cout << "Exiting...\n\n";
+                break;
+            
+            // Prompt for correct option
+            default:
+                std::cout << "Select correct option\n";
+                break;
+        }
+        } while(store_user_selection != 1 && store_user_selection != 2);
     return 0;
 }
