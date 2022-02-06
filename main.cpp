@@ -16,23 +16,47 @@ void make_user_name() {
     MyFile.close();
 }
 
+void make_tasks_file() {
+    std::ofstream MyFile("Program files\\tasks.txt");
+    MyFile.close();
+}
+
 void check_file_existance() {
     // Files to look for
     int check_directory = std::filesystem::exists("Program files");
     int check_user_name = std::filesystem::exists("Program files\\user_name.txt");
+    int check_tasks_file = std::filesystem::exists("Program files\\tasks.txt");
 
     // Ugly - needs later rewrite
     if(check_directory) {
         std::cout << "Directory already exists\n";
+
         if(!check_user_name) {
+            std::cout << "User name not found.\nCreating file...\n";
             make_user_name();
+
+            if(!check_tasks_file) {
+                std::cout << "Tasks file not found.\nCreating file...\n";
+                make_tasks_file();
+            }
+
         } else {
-            std::cout << "File already exists\n";
+            std::cout << "Files already exist\n";
         }
+
     } else if(!check_directory) {
+        std::cout << "Directory not found. Creating directory...\n";
         make_directory();
+
         if(!check_user_name) {
+            std::cout << "User name not found.\nCreating file...\n";
             make_user_name();
+
+            if(!check_tasks_file) {
+                std::cout << "Tasks file not found.\nCreating file...\n";
+                make_tasks_file();
+            }
+
         } else {
             std::cout << "File already exists\n";
         }
@@ -49,6 +73,18 @@ std::string get_user_name(std::string user_name) {
     return name;
 }
 
+void write_file() {
+    std::string store_user_task;
+    std::ofstream MyFile("Program files\\tasks.txt");
+
+    std::cout << "Enter task: ";
+    std::cin >> store_user_task;
+    MyFile << store_user_task;
+    std::cout << "Writing to file\n";
+
+    MyFile.close();
+}
+
 int main() {
     int store_user_selection;
 
@@ -62,8 +98,9 @@ int main() {
     std::cout << "What would you like to do?\n\n";
 
     // Menu
-    std::cout << "[ 1] Write to file\n";
-    std::cout << "[ 2] Exit program\n";
+    std::cout << "[ 1] Display tasks\n";
+    std::cout << "[ 2] Write to file\n";
+    std::cout << "[ 3] Exit program\n";
     std::cout << "\n";
 
     do {
@@ -72,21 +109,28 @@ int main() {
         std::cin >> store_user_selection;
 
         switch(store_user_selection) {
-            // Open and write to file
+            // Display tasks
             case 1:
-                std::cout << "Opening file...\n\n";
+                std::cout << "Displaying tasks...\n\n";
                 break;
             
-            // Exit program without editing
+            // Open and write to file
             case 2:
+                std::cout << "Opening file...\n\n";
+                write_file();
+                std::cout << "See you later.\n";
+                break;
+
+            // Exit program without editing
+            case 3:
                 std::cout << "Exiting...\n\n";
                 break;
-            
+
             // Prompt for correct option
             default:
                 std::cout << "Select correct option\n";
                 break;
         }
-        } while(store_user_selection != 1 && store_user_selection != 2);
+        } while(store_user_selection != 1 && store_user_selection != 2 && store_user_selection != 3);
     return 0;
 }
