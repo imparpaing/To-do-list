@@ -75,11 +75,12 @@ std::string get_user_name(std::string user_name) {
 
 void write_file() {
     std::string store_user_task;
-    std::ofstream MyFile("Program files\\tasks.txt");
+    std::ofstream MyFile("Program files\\tasks.txt", std::ofstream::app);
 
     std::cout << "Enter task: ";
-    std::cin >> store_user_task;
+    std::getline(std::cin >> std::ws, store_user_task);
     MyFile << store_user_task;
+    MyFile << "\n";
     std::cout << "Writing to file\n";
 
     MyFile.close();
