@@ -85,6 +85,17 @@ void write_file() {
     MyFile.close();
 }
 
+void clear_file() {
+    std::string empty_file;
+    std::ofstream MyFile("Program files\\tasks.txt");
+
+    empty_file = "";
+    MyFile << empty_file;
+    std::cout << "Clearing file contents...\n";
+
+    MyFile.close();
+}
+
 int main() {
     int store_user_selection;
 
@@ -100,7 +111,8 @@ int main() {
     // Menu
     std::cout << "[ 1] Display tasks\n";
     std::cout << "[ 2] Write to file\n";
-    std::cout << "[ 3] Exit program\n";
+    std::cout << "[ 3] Clear file\n";
+    std::cout << "[ 4] Exit program\n";
     std::cout << "\n";
 
     do {
@@ -121,8 +133,13 @@ int main() {
                 std::cout << "See you later.\n";
                 break;
 
-            // Exit program without editing
+            // Clear file contents
             case 3:
+                clear_file();
+                std::cout << "See you later.\n";
+
+            // Exit program without editing
+            case 4:
                 std::cout << "Exiting...\n\n";
                 break;
 
@@ -131,6 +148,6 @@ int main() {
                 std::cout << "Select correct option\n";
                 break;
         }
-        } while(store_user_selection != 1 && store_user_selection != 2 && store_user_selection != 3);
+        } while(store_user_selection != 1 && store_user_selection != 2 && store_user_selection != 3 && store_user_selection != 4);
     return 0;
 }
